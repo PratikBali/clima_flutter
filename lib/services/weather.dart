@@ -2,16 +2,24 @@ import 'package:clima_flutter/index.dart';
 
 class WeatherModel {
 
-  Future<dynamic> getLocationWeather() async {
-    Location location = Location();
-    await location.getCurrentLocation();
-    print('step 1 returned success');
-    var latitude = location.latitude;
-    var longitude = location.longitude;
-
-    print('step 2 : getLocationWeather');
+  Future<dynamic> getWeatherByCity(cityName) async {
+    print('step 6: getWeatherByCity from WeatherModel');
     try {
-      NetworkHelper networkHelper = NetworkHelper(latitude, longitude);
+      NetworkHelper networkHelper = NetworkHelper();
+      var weatherData = await networkHelper.getWeatherByCityApi(cityName);
+      print('step 6 : return weather city success');
+      return weatherData;
+    } catch (e) {
+      print('step 6 : weather city failure');
+      print(e);
+    }
+    print('step 6: return failed getWeatherByCity');
+  }
+
+  Future<dynamic> getLocationWeather() async {
+    print('step 1 : getLocationWeather');
+    try {
+      NetworkHelper networkHelper = NetworkHelper();
       var weatherData = await networkHelper.getWeatherData();
       print('step 2 : weather data success');
       return weatherData;
