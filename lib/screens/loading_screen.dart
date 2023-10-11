@@ -8,7 +8,7 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-
+  WeatherModel weather = WeatherModel();
   @override
   void initState() {
     super.initState();
@@ -16,22 +16,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getLocationData() async {
-    Location location = Location();
-    await location.getCurrentLocation();
-
-    var latitude = location.latitude;
-    var longitude = location.longitude;
-
-    try {
-      NetworkHelper networkHelper = NetworkHelper(latitude, longitude);
-      var weatherData = await networkHelper.getWeatherData();
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return LocationScreen(weatherData);
-      }));
-    } catch (e) {
-      print(e);
-    }
+    var weatherData = await weather.getLocationWeather();
+    print('step 2 returned success');
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return LocationScreen(weatherData);
+    }));
   }
+
 
   @override
   Widget build(BuildContext context) {

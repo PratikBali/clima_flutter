@@ -15,13 +15,17 @@ class Location {
         print('Done');
       }
     }
-    print('getCurrentLocation');
+    print('step 1 - getCurrentLocation()');
     try {
+      print('step 1 getting location data');
       Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
       latitude = position.latitude;
       longitude = position.longitude;
+      print('step 1 location data- $position');
     } catch (e) {
+      print('step 1 location data failure');
       print(e);
     }
+    print('step 1 return');
   }
 }

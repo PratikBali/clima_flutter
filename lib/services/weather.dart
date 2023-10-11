@@ -1,4 +1,27 @@
+import 'package:clima_flutter/index.dart';
+
 class WeatherModel {
+
+  Future<dynamic> getLocationWeather() async {
+    Location location = Location();
+    await location.getCurrentLocation();
+    print('step 1 returned success');
+    var latitude = location.latitude;
+    var longitude = location.longitude;
+
+    print('step 2 : getLocationWeather');
+    try {
+      NetworkHelper networkHelper = NetworkHelper(latitude, longitude);
+      var weatherData = await networkHelper.getWeatherData();
+      print('step 2 : weather data success');
+      return weatherData;
+    } catch (e) {
+      print('step 2 : weather data failure');
+      print(e);
+    }
+    print('step 2 failure');
+  }
+
   String getWeatherIcon(int condition) {
     if (condition < 300) {
       return '🌩';
