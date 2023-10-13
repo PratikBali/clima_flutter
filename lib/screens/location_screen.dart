@@ -17,13 +17,11 @@ class _LocationScreenState extends State<LocationScreen> {
 
   @override
   void initState() {
-    print('step 3 location screen init');
     super.initState();
     updateUI(widget.locationWeather);
   }
 
   void updateUI(dynamic weatherData) {
-    print('step 4 - setting weatherData on screen');
     setState(() {
       if(weatherData != null) {
         double temp = weatherData['main']['temp'];
@@ -32,7 +30,6 @@ class _LocationScreenState extends State<LocationScreen> {
         weatherIcon = weather.getWeatherIcon(condition);
         weatherMsg = weather.getMessage(temparature);
         cityName = weatherData['name'];
-        print('City: $cityName');
       } else {
         temparature = 0;
         weatherIcon = 'Error';
@@ -78,11 +75,8 @@ class _LocationScreenState extends State<LocationScreen> {
                       var typedName = await Navigator.push(context, MaterialPageRoute(builder: (context) {
                         return CityScreen();
                       }));
-                      print(typedName);
                       if (typedName != null) {
-                        print('step 5: init from location screen');
                         var weatherData = await weather.getWeatherByCity(typedName);
-                        print(weatherData);
                         updateUI(weatherData);
                       }
                     },

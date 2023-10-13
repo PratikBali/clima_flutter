@@ -11,7 +11,6 @@ class NetworkHelper {
   var longitude;
 
   Future<dynamic> getWeatherByCityApi(cityName) async {
-    print('step 7: getWeatherByCityApi from Networking');
 
     Response response = await get(
       Uri.https(
@@ -25,11 +24,9 @@ class NetworkHelper {
       ),
     );
     if (response.statusCode == 200) {
-      print('step 7: getWeatherByCity success statusCode:${response.statusCode}');
       String data = response.body;
       return jsonDecode(data);
     } else {
-      print('step 7: getWeatherByCity failed statusCode:${response.statusCode}');
       return null;
     }
   }
@@ -37,7 +34,6 @@ class NetworkHelper {
   Future<dynamic> getWeatherData() async {
     Location location = Location();
     await location.getCurrentLocation();
-    print('step 1 returned success');
     var latitude = location.latitude;
     var longitude = location.longitude;
 
@@ -55,11 +51,9 @@ class NetworkHelper {
       ),
     );
     if (response.statusCode == 200) {
-      print('statusCode:${response.statusCode}');
       String data = response.body;
       return jsonDecode(data);
     } else {
-      print('statusCode:${response.statusCode}');
       return null;
     }
   }
