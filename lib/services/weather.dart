@@ -1,25 +1,27 @@
+import 'dart:developer';
+
 import 'package:clima_flutter/index.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class WeatherModel {
 
-  Future<dynamic> getWeatherByCity(cityName) async {
-    try {
-      NetworkHelper networkHelper = NetworkHelper();
-      var weatherData = await networkHelper.getWeatherByCityApi(cityName);
-      return weatherData;
-    } catch (e) {
-      print(e);
+  Future<dynamic> getWeatherByCity(cityName, context) async {
+    NetworkHelper networkHelper = NetworkHelper();
+    var weatherData = await networkHelper.getWeatherByCityApi(cityName);
+    if(weatherData == null) {
+      Alert(context: context, title: "Oops! Something went wrong", desc: "Please try again").show();
     }
+    return weatherData;
   }
 
-  Future<dynamic> getLocationWeather() async {
-    try {
-      NetworkHelper networkHelper = NetworkHelper();
-      var weatherData = await networkHelper.getWeatherData();
-      return weatherData;
-    } catch (e) {
-      print(e);
+  Future<dynamic> getLocationWeather(context) async {
+    print('2. getLocationWeather');
+    NetworkHelper networkHelper = NetworkHelper();
+    var weatherData = await networkHelper.fetchWeatherData();
+    if(weatherData == null) {
+      Alert(context: context, title: "Oops! Something went wrong", desc: "Please try again").show();
     }
+    return weatherData;
   }
 
   String getWeatherIcon(int condition) {
